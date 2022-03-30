@@ -6,10 +6,9 @@ class InputMenu
     {
         $OpenMessage = "TODO-List
         1)Add Item
-        2)Remove last added item
+        2)Remove item
         3)Print TODO-List
-        4)Remove item at selected number
-        5)Finish
+        4)Finish
         "
         write-host $OpenMessage
     }

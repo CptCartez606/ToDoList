@@ -1,1 +1,1 @@
-cd '.\Desktop\Programming Shiz\TDList\'
+cd '.\Desktop\Programming Shiz\ToDoList\'

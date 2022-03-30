@@ -1,5 +1,5 @@
-. .\TDL_Class.ps1
-. .\TDL_Menu_Class.ps1
+. .\Classes\TDL_Class.ps1
+. .\Classes\TDL_Menu_Class.ps1
 
 function InitiateTDLList
 {
@@ -16,16 +16,24 @@ function SelectMenuOption
 
         switch ($inp)
         {
-            1 {$tdl.AddItem()}
-            2 {$tdl.RemoveItem()} #Not working yet
-            3 
+            1 #Add Item
+            {
+                $tdl.AddItem()
+            }
+            2 #Remove Item
+            {
+                Clear-Host
+                $tdl.GetList()
+                $tdl.RemoveItem()
+                cmd /c pause
+            }
+            3 #Print
             {
                 Clear-Host #clear the space for the list to print
                 $tdl.GetList()
                 cmd /c pause #Press any key to continue ...
             }
-            4 {"Remove @."} #TODO...
-            5 
+            4 #Finish
             {
                 Write-Host "Finished." 
                 $menu.SetMenuFlag($true)
