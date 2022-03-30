@@ -1,4 +1,4 @@
-Set-ExecutionPolicy -ExecutionPolicy Bypass
+#Set-ExecutionPolicy -ExecutionPolicy Bypass
 
 . .\TDL_Manager.ps1
 StartApplication
