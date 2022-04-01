@@ -12,7 +12,7 @@ function InitiateTDLList
 function SelectMenuOption
 {
     $menu.ShowMessage()
-    $inp = Read-Host -Prompt "Input"
+    $inp = CheckInput (4)
 
         switch ($inp)
         {
@@ -22,15 +22,14 @@ function SelectMenuOption
             }
             2 #Remove Item
             {
-                Clear-Host
-                $tdl.GetList()
-                $tdl.RemoveItem()
-                cmd /c pause
+                ClearNPrint
+                $inputRemove = CheckInput($tdl.GetCount())
+                $tdl.RemoveItem($inputRemove)
+                cmd /c pause         
             }
             3 #Print
             {
-                Clear-Host #clear the space for the list to print
-                $tdl.GetList()
+                ClearNPrint
                 cmd /c pause #Press any key to continue ...
             }
             4 #Finish
@@ -39,6 +38,72 @@ function SelectMenuOption
                 $menu.SetMenuFlag($true)
             }
         }
+}
+function CheckInput($limit)
+{
+    $flag = $false
+
+        while(!$flag)
+        {
+            $message = "Please enter a number between 1 and " + $limit
+
+            try {
+                [int]$userInput = Read-Host -Prompt $message
+            }
+            catch {
+                "Error: Invalid entry! Try again"
+                [int]$userInput = 0
+            }
+
+            $gtbool = $userInput -gt $limit
+            $ltbool = $userInput -lt 1
+
+            if($gtbool -Or $ltbool)
+            {
+                Write-Host "Error: Number out of range"
+            }
+            else
+            {
+                $flag = $true
+            }
+        }
+        return $userInput
+}
+function Remove
+{
+    Clear-Host
+    $tdl.PrintList()
+
+    $flag = $false
+
+
+        while(!$flag)
+        {
+            [int]$userInput = Read-Host -Prompt "Enter the number you wish to delete from the list"
+
+            $intbool = $userInput -isNot [System.Int32]
+            $gtbool = $userInput -gt $tdl.GetCount()
+            $ltbool = $userInput -lt 1
+
+            if($intbool -Or $gtbool -Or $ltbool)
+            {
+                Write-Host "Please enter a number between 1 and " ($tdl.GetCount())
+                Write-Host $userInput " " $tdl.GetCount() "Stringbool: " $stringbool "Gtbool:" $gtbool "Lebool:" $ltbool
+            }
+            else 
+            {
+                $tdl.RemoveItem($userInput)
+                
+                $flag = $true
+            }
+        }
+
+        cmd /c pause
+}
+function ClearNPrint
+{
+    Clear-Host
+    $tdl.PrintList()
 }
 function StartApplication
 {
